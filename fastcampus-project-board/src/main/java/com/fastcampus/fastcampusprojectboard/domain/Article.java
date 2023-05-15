@@ -24,8 +24,9 @@ import java.util.Set;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy")
 })
+@EntityListeners(AuditingEntityListener.class)
 @Entity
-public class Article extends AuditingFields {
+public class Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +48,18 @@ public class Article extends AuditingFields {
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
 
-
-
-
-
+    @CreatedDate
+    @Column(nullable = false)
+    private LocalTime createdAt; //생성일시
+    @CreatedBy
+    @Column(nullable = false, length = 100)
+    private String createdBy; //생성자
+    @LastModifiedDate
+    @Column(nullable = false)
+    private LocalTime modifiedAt; //수정일시
+    @LastModifiedBy
+    @Column(nullable = false, length = 100)
+    private String modifiedBy; // 수정자
 
     protected Article() {} //기본 생성자는 외부에서 접근 불가하도록 protected로 설정 함
 

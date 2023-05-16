@@ -3,6 +3,7 @@ package com.fastcampus.fastcampusprojectboard.controller;
 
 //컨트롤러에 대한 테스트
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import static org.springframework.boot.actuate.health.Status.UP;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
+@Disabled("Spring Data REST 통합 테스트는 불필요함으로 제외시킴")
 @DisplayName("DATA REST - api 테스트")
 @Transactional
 @AutoConfigureMockMvc

@@ -22,19 +22,25 @@ public class QArticleComment extends EntityPathBase<ArticleComment> {
 
     public static final QArticleComment articleComment = new QArticleComment("articleComment");
 
+    public final QAuditingFields _super = new QAuditingFields(this);
+
     public final QArticle article;
 
     public final StringPath content = createString("content");
 
-    public final StringPath createBy = createString("createBy");
+    //inherited
+    public final TimePath<java.time.LocalTime> createdAt = _super.createdAt;
 
-    public final TimePath<java.time.LocalTime> createdAt = createTime("createdAt", java.time.LocalTime.class);
+    //inherited
+    public final StringPath createdBy = _super.createdBy;
 
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
-    public final TimePath<java.time.LocalTime> modifiedAt = createTime("modifiedAt", java.time.LocalTime.class);
+    //inherited
+    public final TimePath<java.time.LocalTime> modifiedAt = _super.modifiedAt;
 
-    public final StringPath modifiedBy = createString("modifiedBy");
+    //inherited
+    public final StringPath modifiedBy = _super.modifiedBy;
 
     public QArticleComment(String variable) {
         this(ArticleComment.class, forVariable(variable), INITS);

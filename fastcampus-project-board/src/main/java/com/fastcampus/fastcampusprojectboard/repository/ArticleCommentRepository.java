@@ -24,11 +24,11 @@ public interface ArticleCommentRepository extends
         //현재 QuerydslPredicateExecutor 이 기능을 통해 Article의 모든 필드에 대한 검색이 열려 있음, 선택적으로 검색이 가능하도록 함
 
         //including을 통해서 검색 원하는 필드를 넣어줌
-        bindings.including(root.content, root.createdAt, root.createBy);
+        bindings.including(root.content, root.createdAt, root.createdBy);
 
         //first 검색 파라미터를 1개만 받음
         bindings.bind(root.content).first(StringExpression::containsIgnoreCase); //쿼리문 like '%s{v}%'
-        bindings.bind(root.createBy).first(StringExpression::containsIgnoreCase);
+        bindings.bind(root.createdBy).first(StringExpression::containsIgnoreCase);
         /*bindings.bind(root.createdAt).first(DateTimeExpression::eq);*/
     }
 }

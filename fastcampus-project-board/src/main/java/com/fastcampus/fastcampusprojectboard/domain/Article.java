@@ -17,7 +17,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Getter
-@ToString
+@ToString(callSuper = true) //안쪽까지 들어가서 tostring을 찍어냄
 @Table(indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "hashtag"),
@@ -32,6 +32,11 @@ public class Article extends AuditingFields{
     private long id;
 
     @Setter
+    @ManyToOne(optional = false)
+    private UserAccount userAccount; //유저 정보ID
+
+
+    @Setter
     @Column(nullable = false)
     private String title; //제목
     @Setter
@@ -42,21 +47,22 @@ public class Article extends AuditingFields{
 
 
     @ToString.Exclude
-    @OrderBy("id")
+    @OrderBy("createdAt DESC")
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private final Set<ArticleComment> articleComments = new LinkedHashSet<>();
 
 
     protected Article() {} //기본 생성자는 외부에서 접근 불가하도록 protected로 설정 함
 
-    public Article(String title, String content, String hashtag) {
+    public Article(UserAccount userAccount, String title, String content, String hashtag) {
+        this.userAccount = userAccount;
         this.title=title;
         this.content=content;
         this.hashtag=hashtag;
     }
 
-    public static Article of(String title, String content, String hashtag) {
-        return new Article(title, content, hashtag);
+    public static Article of(UserAccount userAccount,String title, String content, String hashtag) {
+        return new Article(userAccount,title, content, hashtag);
     }
 
     @Override

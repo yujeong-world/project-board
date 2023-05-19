@@ -11,6 +11,8 @@ import org.springframework.data.querydsl.binding.QuerydslBinderCustomizer;
 import org.springframework.data.querydsl.binding.QuerydslBindings;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
+import java.util.List;
+
 @RepositoryRestResource
 public interface ArticleCommentRepository extends
         JpaRepository<ArticleComment, Long>,
@@ -18,6 +20,7 @@ public interface ArticleCommentRepository extends
         QuerydslBinderCustomizer<QArticleComment>
 
 {
+    List<ArticleComment> findByArticle_Id(Long articleId); // 게시글 아이디를 뽑아서 그 게시글에 해당되는 댓글리스트를 뽑아냄
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root){
         bindings.excludeUnlistedProperties(true); // 리스팅을 하지 않은 속성에 대해서는 검색이 안되도록 함

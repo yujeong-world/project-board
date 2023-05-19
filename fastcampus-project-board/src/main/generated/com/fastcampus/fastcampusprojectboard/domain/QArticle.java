@@ -18,6 +18,8 @@ public class QArticle extends EntityPathBase<Article> {
 
     private static final long serialVersionUID = -1003250036L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QArticle article = new QArticle("article");
 
     public final QAuditingFields _super = new QAuditingFields(this);
@@ -27,7 +29,7 @@ public class QArticle extends EntityPathBase<Article> {
     public final StringPath content = createString("content");
 
     //inherited
-    public final TimePath<java.time.LocalTime> createdAt = _super.createdAt;
+    public final DateTimePath<java.time.LocalDateTime> createdAt = _super.createdAt;
 
     //inherited
     public final StringPath createdBy = _super.createdBy;
@@ -37,23 +39,34 @@ public class QArticle extends EntityPathBase<Article> {
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     //inherited
-    public final TimePath<java.time.LocalTime> modifiedAt = _super.modifiedAt;
+    public final DateTimePath<java.time.LocalDateTime> modifiedAt = _super.modifiedAt;
 
     //inherited
     public final StringPath modifiedBy = _super.modifiedBy;
 
     public final StringPath title = createString("title");
 
+    public final QUserAccount userAccount;
+
     public QArticle(String variable) {
-        super(Article.class, forVariable(variable));
+        this(Article.class, forVariable(variable), INITS);
     }
 
     public QArticle(Path<? extends Article> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QArticle(PathMetadata metadata) {
-        super(Article.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QArticle(PathMetadata metadata, PathInits inits) {
+        this(Article.class, metadata, inits);
+    }
+
+    public QArticle(Class<? extends Article> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.userAccount = inits.isInitialized("userAccount") ? new QUserAccount(forProperty("userAccount")) : null;
     }
 
 }

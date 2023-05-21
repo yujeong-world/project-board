@@ -26,8 +26,6 @@ spring:
       data.rest:
         base-path: /api
         detection-strategy: annotated
-    hibernate:
-      ddl-auto:
   thymeleaf3:
     decoupled-logic: true
 

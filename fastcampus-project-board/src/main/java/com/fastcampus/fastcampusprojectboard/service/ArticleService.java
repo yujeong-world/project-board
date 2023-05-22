@@ -1,10 +1,12 @@
 package com.fastcampus.fastcampusprojectboard.service;
 
 import com.fastcampus.fastcampusprojectboard.domain.Article;
+import com.fastcampus.fastcampusprojectboard.domain.UserAccount;
 import com.fastcampus.fastcampusprojectboard.domain.type.SearchType;
 import com.fastcampus.fastcampusprojectboard.dto.ArticleDto;
 import com.fastcampus.fastcampusprojectboard.dto.ArticleWithCommentsDto;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
+import com.fastcampus.fastcampusprojectboard.repository.UserAccountRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -21,6 +23,7 @@ import java.util.List;
 @Service
 public class ArticleService {
     private final ArticleRepository articleRepository;
+    private final UserAccountRepository userAccountRepository;
 
     @Transactional(readOnly = true)
     public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
@@ -43,24 +46,33 @@ public class ArticleService {
 
     }
 
-    //게시글 단건 조회
+
     @Transactional(readOnly = true)
-    public ArticleWithCommentsDto getArticle(Long articleId) {
+    public ArticleWithCommentsDto getArticleWithComments(Long articleId) {
         return articleRepository.findById(articleId)
                 .map(ArticleWithCommentsDto::from)
                 .orElseThrow(()->new EntityNotFoundException("게시글이 없습니다 -articleId:"+articleId));
     }
 
+    //게시글 단건 조회
+    @Transactional(readOnly = true)
+    public ArticleDto getArticle(Long articleId) {
+        return articleRepository.findById(articleId)
+                .map(ArticleDto::from)
+                .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: " + articleId));
+    }
+
     //게시글 정보를 입력 하면 게시글을 생성한다.
     public void saveArticle(ArticleDto dto) {
-        articleRepository.save(dto.toEntity());
+        UserAccount userAccount = userAccountRepository.getReferenceById(Long.valueOf(dto.userAccountDto().userId()));
+        articleRepository.save(dto.toEntity(userAccount));
     }
 
     //게시글 수정하는 경우
-    public void updateArticle(ArticleDto dto) {
+    public void updateArticle(Long articleId,ArticleDto dto) {
         //예외처리: 없는 게시글의 수정정보를 입력했을 때!
         try {
-            Article article= articleRepository.getReferenceById(dto.id());
+            Article article= articleRepository.getReferenceById(articleId);
             // 해시태그는 null값이 가능한 필드이므로 입력받은 내용을 그대로 넣음
             //내용과 제목은 null불가함
             if (dto.title() != null){ article.setHashtag(dto.title()); }

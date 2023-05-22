@@ -4,6 +4,7 @@ import com.fastcampus.fastcampusprojectboard.domain.Article;
 import com.fastcampus.fastcampusprojectboard.domain.type.SearchType;
 import com.fastcampus.fastcampusprojectboard.dto.ArticleDto;
 import com.fastcampus.fastcampusprojectboard.repository.ArticleRepository;
+import org.assertj.core.api.BDDAssertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +14,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -48,6 +51,51 @@ class ArticleServiceTest {
         //Then
         assertThat(articles).isNotNull();
     }
+
+    @DisplayName("검색어 없이 게시글을 해시태그 검색하면, 빈 페이지를 반환한다.")
+    @Test
+    void givenNoSearchParameters_whenSearchingArticlesViaHashtag_thenReturnsEmptyPage(){
+        //given
+        Pageable pageable = Pageable.ofSize(20);
+
+        //when
+        Page<ArticleDto> articles = sut.searchArticlesViaHashtag(null, pageable);
+
+        //then
+        assertThat(articles).isEqualTo(Page.empty(pageable));
+        BDDMockito.then(articleRepository).shouldHaveNoInteractions();
+    }
+
+    @DisplayName("게시글을 해시태그 검색하면, 게시글 페이지를 반환한다.")
+    @Test
+    void givenHashtage_whenSearchingArticlesViaHashtag_thenReturnsArticlesPage(){
+        //given
+        String hashtag = "#java";
+        Pageable pageable = Pageable.ofSize(20);
+        BDDMockito.given(articleRepository.findByHashtag(hashtag, pageable)).willReturn(Page.empty(pageable));
+
+        //when
+        Page<ArticleDto> articles = sut.searchArticlesViaHashtag(hashtag, pageable);
+
+        //then
+        assertThat(articles).isEqualTo(Page.empty(pageable));
+        BDDMockito.then(articleRepository).should().findByHashtag(hashtag, pageable);
+    }
+
+    @DisplayName("해시태그를 조회하면, 유니크 해시태그 리스트를 반환한다.")
+    @Test
+    void givenNothing_whenCalling_thenReturnsHashtags(){
+        //given
+        List<String> expectedHashtag = List.of("#java", "#spring", "#boot");
+        BDDMockito.given(articleRepository.findAllDistinctHashtags()).willReturn(expectedHashtag);
+
+        //when
+        List<String> actualHashtags = sut.getHashtags();
+        //then
+        assertThat(actualHashtags).isEqualTo(expectedHashtag);
+        BDDMockito.then(articleRepository).should().findAllDistinctHashtags;
+    }
+
 
     @DisplayName("게시글을 조회하면, 게시글을 반환한다.")
     @Test

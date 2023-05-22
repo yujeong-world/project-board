@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor  // 필수 필드에 대한 생성자를 자동으로 만들어주는 롬복 어노테이션
@@ -25,7 +26,7 @@ public class ArticleService {
     public Page<ArticleDto> searchArticles(SearchType searchType, String searchKeyword, Pageable pageable) {
         //검색어가 있을 때와 없는 경우를 분리해서 생각.
 
-        //검색을 안하는 경우 ! 키워드가 널인경우
+        //검색을 안하는 경우 ! 키워드가 널인경우, 전체 데이터를 보여줌
         if(searchKeyword == null || searchKeyword.isBlank()){
             return articleRepository.findAll(pageable).map(ArticleDto :: from); //ArticleDto에 있는 from메소드를 보내줌
         }
@@ -74,6 +75,27 @@ public class ArticleService {
     //게시글 삭제
     public void deleteArticle(long articleId) {
         articleRepository.deleteById(articleId);
+    }
+
+    public long getArticleCount(){
+        return articleRepository.count();
+    }
+
+
+    @Transactional(readOnly = true)
+    public Page<ArticleDto> searchArticlesViaHashtag(String hashtag, Pageable pageable) {
+        //해시태그가 안들어 온 경우 -> 검색을 할 필요가 없음
+        if (hashtag==null || hashtag.isBlank()){
+            return Page.empty(pageable);
+        }
+
+
+        return articleRepository.findByHashtag(hashtag, pageable).map(ArticleDto::from
+        );
+    }
+
+    public List<String> getHashtags(){
+        return articleRepository.findAllDistinctHashtag();
     }
 
 }

@@ -29,10 +29,11 @@ public class Article extends AuditingFields{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Setter
     @ManyToOne(optional = false)
+    @JoinColumn(name = "userId")
     private UserAccount userAccount; //유저 정보ID
 
 
@@ -65,12 +66,12 @@ public class Article extends AuditingFields{
         return new Article(userAccount,title, content, hashtag);
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Article)) return false;
-        Article article = (Article) o;
-        return id == article.id;
+        if (!(o instanceof Article article)) return false;
+        return id != null && id.equals(article.id);
     }
 
     @Override

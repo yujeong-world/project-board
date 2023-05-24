@@ -4,7 +4,7 @@ package com.fastcampus.fastcampusprojectboard.controller;
 import com.fastcampus.fastcampusprojectboard.domain.constant.FormStatus;
 import com.fastcampus.fastcampusprojectboard.domain.type.SearchType;
 import com.fastcampus.fastcampusprojectboard.dto.UserAccountDto;
-import com.fastcampus.fastcampusprojectboard.request.ArticleRequest;
+import com.fastcampus.fastcampusprojectboard.dto.request.ArticleRequest;
 import com.fastcampus.fastcampusprojectboard.response.ArticleResponse;
 import com.fastcampus.fastcampusprojectboard.response.ArticleWithCommentResponse;
 import com.fastcampus.fastcampusprojectboard.service.ArticleService;

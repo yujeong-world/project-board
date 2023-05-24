@@ -64,7 +64,7 @@ public class ArticleService {
 
     //게시글 정보를 입력 하면 게시글을 생성한다.
     public void saveArticle(ArticleDto dto) {
-        UserAccount userAccount = userAccountRepository.getReferenceById(Long.valueOf(dto.userAccountDto().userId()));
+        UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
         articleRepository.save(dto.toEntity(userAccount));
     }
 

@@ -1,6 +1,7 @@
 package com.fastcampus.fastcampusprojectboard.controller;
 
-import com.fastcampus.fastcampusprojectboard.config.SecurityConfig;
+import com.boardProject.fastcampusprojectboard.config.SecurityConfig;
+import com.boardProject.fastcampusprojectboard.controller.MainController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -9,8 +10,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-
-import static org.junit.jupiter.api.Assertions.*;
 @Import(SecurityConfig.class)
 @WebMvcTest(MainController.class)
 class MainControllerTest {

@@ -1,6 +1,6 @@
 package com.fastcampus.fastcampusprojectboard.controller;
 
-import com.fastcampus.fastcampusprojectboard.config.SecurityConfig;
+import com.boardProject.fastcampusprojectboard.config.SecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

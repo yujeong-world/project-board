@@ -1,10 +1,10 @@
 package com.fastcampus.fastcampusprojectboard.service;
 
-import com.boardProject.fastcampusprojectboard.domain.Article;
-import com.boardProject.fastcampusprojectboard.dto.ArticleCommentDto;
-import com.boardProject.fastcampusprojectboard.repository.ArticleCommentRepository;
-import com.boardProject.fastcampusprojectboard.repository.ArticleRepository;
-import com.boardProject.fastcampusprojectboard.service.ArticleCommentService;
+import com.boardProject.board.domain.Article;
+import com.boardProject.board.dto.ArticleCommentDto;
+import com.boardProject.board.repository.ArticleCommentRepository;
+import com.boardProject.board.repository.ArticleRepository;
+import com.boardProject.board.service.ArticleCommentService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

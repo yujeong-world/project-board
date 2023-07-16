@@ -1,8 +1,8 @@
 package com.fastcampus.fastcampusprojectboard.config;
 
-import com.boardProject.fastcampusprojectboard.config.SecurityConfig;
-import com.boardProject.fastcampusprojectboard.domain.UserAccount;
-import com.boardProject.fastcampusprojectboard.repository.UserAccountRepository;
+import com.boardProject.board.config.SecurityConfig;
+import com.boardProject.board.domain.UserAccount;
+import com.boardProject.board.repository.UserAccountRepository;
 import org.mockito.ArgumentMatchers;
 import org.mockito.BDDMockito;
 import org.springframework.boot.test.mock.mockito.MockBean;

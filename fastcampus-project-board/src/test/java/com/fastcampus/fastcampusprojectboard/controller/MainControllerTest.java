@@ -1,7 +1,7 @@
 package com.fastcampus.fastcampusprojectboard.controller;
 
-import com.boardProject.fastcampusprojectboard.config.SecurityConfig;
-import com.boardProject.fastcampusprojectboard.controller.MainController;
+import com.boardProject.board.config.SecurityConfig;
+import com.boardProject.board.controller.MainController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

@@ -53,7 +53,7 @@ class JPARepositoryTest {
 
     }
 
-/*    @DisplayName("delete 테스트")
+    @DisplayName("delete 테스트")
     @Test
     void givenTestData_whenDeleting_thenWorksFind(){
         Article article =articleRepository.findById(1L).orElseThrow();
@@ -66,7 +66,7 @@ class JPARepositoryTest {
 
         //then
         assertThat(articleRepository.count()).isEqualTo(previousArticleCount)
-    }*/
+    }
 
     //컨피규레이션 어노테이션으로 등록하되, 테스트 할 때만 적용, 일반적으로 서비스 스캔에는 보이지 않음
     @EnableJpaAuditing

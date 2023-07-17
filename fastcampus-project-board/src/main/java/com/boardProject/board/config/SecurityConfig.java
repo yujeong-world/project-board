@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
@@ -43,15 +44,13 @@ public class SecurityConfig {
 
     }
 
-
-
     //사용자 정보 불러오기
     @Bean
     public UserDetailsService userDetailsService(UserAccountRepository userAccountRepository){
         return username -> userAccountRepository
                 .findById(username)
                 .map(UserAccountDto::from)
-                .map(BoardPrincipal::from)
+                .map(BoardPrincipal::from)/*Principal : 인증과 관련한 기능*/
                 .orElseThrow(()->new UsernameNotFoundException("유저를 찾을 수 없습니다 - username : "+username)); /*인증된 사용자를 찾지 못 했을 때의 대안*/
 
     }

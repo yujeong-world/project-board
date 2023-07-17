@@ -19,6 +19,7 @@ public interface ArticleCommentRepository extends
 
 {
     List<ArticleComment> findByArticle_Id(Long articleId); // 게시글 아이디를 뽑아서 그 게시글에 해당되는 댓글리스트를 뽑아냄
+    void deleteByIdAndUserAccount_UserId(Long articleCommentId, String userId);
     @Override
     default void customize(QuerydslBindings bindings, QArticleComment root){
         bindings.excludeUnlistedProperties(true); // 리스팅을 하지 않은 속성에 대해서는 검색이 안되도록 함

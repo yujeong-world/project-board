@@ -73,20 +73,27 @@ public class ArticleService {
         //예외처리: 없는 게시글의 수정정보를 입력했을 때!
         try {
             Article article= articleRepository.getReferenceById(articleId);
-            // 해시태그는 null값이 가능한 필드이므로 입력받은 내용을 그대로 넣음
-            //내용과 제목은 null불가함
-            if (dto.title() != null){ article.setHashtag(dto.title()); }
-            if (dto.content() != null){ article.setHashtag(dto.content()); }
-            article.setHashtag(dto.hashtag());
+            UserAccount userAccount = userAccountRepository.getReferenceById(dto.userAccountDto().userId());
+
+            // 게시글의 사용자와 인증된 사용자와 동일할 떄 , 비로소 업데이트를 수행해라
+            if(article.getUserAccount().equals(userAccount)){
+                // 해시태그는 null값이 가능한 필드이므로 입력받은 내용을 그대로 넣음
+                //내용과 제목은 null불가함
+                if (dto.title() != null){ article.setHashtag(dto.title()); }
+                if (dto.content() != null){ article.setHashtag(dto.content()); }
+                article.setHashtag(dto.hashtag());
+            }
+
         } catch (EntityNotFoundException e){
-            log.warn("게시글 업데이트 실패. 게시글을 찾을 수 없습니다. - dto: {}", dto);
+            log.warn("게시글 업데이트 실패. 게시글을 수정하는데 필요한 정보를 찾을 수 없습니다. -{}", e.getLocalizedMessage());
         }
 
     }
 
     //게시글 삭제
-    public void deleteArticle(long articleId) {
-        articleRepository.deleteById(articleId);
+    public void deleteArticle(long articleId, String userId) {
+
+        articleRepository.deleteByIdAndUserAccount_UserId(articleId, userId);
     }
 
     public long getArticleCount(){

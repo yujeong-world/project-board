@@ -26,7 +26,7 @@ public class ArticleCommentController {
             ArticleCommentRequest articleCommentRequest){
         //댓글을 넣은 사람의 정보, 인증이 없는 상태에서 넣는 과정
         // TODO : 인증 정보를 넣어줘야 한다.
-        articleCommentService.saveArticleComment(articleCommentRequest.toDto(boardPrincipal.toDto());
+        articleCommentService.saveArticleComment(articleCommentRequest.toDto(boardPrincipal.toDto()));
 
 
         return "redirect:/articles/" + articleCommentRequest.articleId();

@@ -61,6 +61,7 @@ public class ArticleController {
         ArticleWithCommentResponse article = ArticleWithCommentResponse.from(articleService.getArticleWithComments(articleId));
         map.addAttribute("article", article);
         map.addAttribute("articleComments", article.articleCommentResponses());
+        map.addAttribute("totalCount", articleService.getArticleCount());
 
         return "articles/detail";
     }
@@ -120,8 +121,8 @@ public class ArticleController {
     @PostMapping ("/{articleId}/form")
     public String updateArticle(
             @PathVariable Long articleId,
-            ArticleRequest articleRequest,
-            @AuthenticationPrincipal BoardPrincipal boardPrincipal
+            @AuthenticationPrincipal BoardPrincipal boardPrincipal,
+            ArticleRequest articleRequest
     ) {
         //인증정보
         articleService.updateArticle(articleId, articleRequest.toDto(boardPrincipal.toDto()));

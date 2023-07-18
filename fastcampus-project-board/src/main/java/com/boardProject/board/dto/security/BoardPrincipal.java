@@ -60,12 +60,12 @@ public record BoardPrincipal(
 
     @Override
     public String getPassword() {
-        return userName;
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return password;
+        return userName;
     }
 
 

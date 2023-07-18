@@ -79,8 +79,8 @@ public class ArticleService {
             if(article.getUserAccount().equals(userAccount)){
                 // 해시태그는 null값이 가능한 필드이므로 입력받은 내용을 그대로 넣음
                 //내용과 제목은 null불가함
-                if (dto.title() != null){ article.setHashtag(dto.title()); }
-                if (dto.content() != null){ article.setHashtag(dto.content()); }
+                if (dto.title() != null){ article.setTitle(dto.title()); }
+                if (dto.content() != null){ article.setContent(dto.content()); }
                 article.setHashtag(dto.hashtag());
             }
 

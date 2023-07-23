@@ -33,6 +33,9 @@ SpringBoot
 ![image](https://github.com/yujeong-world/project-board/assets/124220083/831a7bad-0345-4c0c-8f2f-aae9f0086b89)
 
 
-## 📌 주요 기능 미리보기 : 메인 페이지
+## ERD 다이어그램
+![image](https://github.com/yujeong-world/project-board/assets/124220083/d31fd3d2-5ff3-4958-9c46-20731caed5b7)
 
+## 📌 메인 페이지 미리보기
+![Untitled](https://github.com/yujeong-world/project-board/assets/124220083/8f5a1a80-07c1-4348-9487-70fbfa060f09)
 
